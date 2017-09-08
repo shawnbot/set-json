@@ -22,10 +22,10 @@ set-json --copy from.json:a test.json
 # {"foo": {"bar": {"baz": "qux"}}, "a": {"b": "c"}}
 ```
 
-# Installation
+## Installation
 ```
 npm install set-json
 ```
 
-# API
+## API
 Run `set-json --help` for more info.
