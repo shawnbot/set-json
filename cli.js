@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const dot = require("dot-component")
 const fse = require("fs-extra")
+const entries = require("object.entries")
 const yargs = require("yargs")
   .option("set", {
     describe: "Set key 'x' in the form --set.x=foo",
@@ -20,7 +21,7 @@ const args = opts._
 const ops = []
 
 if (opts.set && typeof opts.set === "object") {
-  Object.entries(opts.set).forEach(([key, val]) => {
+  entries(opts.set).forEach(([key, val]) => {
     ops.push(json => {
       dot.set(json, key, val)
       return json
