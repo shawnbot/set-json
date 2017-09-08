@@ -28,50 +28,31 @@ const run = (data, args) => {
     })
 }
 
-const testRun = (name, input, args, output) => {
-  return test(name, t => {
-    return run(input, args)
-      .then(res => t.deepEqual(res, output))
-  })
+const testRun = (input, args, output) => {
+  return t => run(input, args).then(res => t.deepEqual(res, output))
 }
 
-testRun(
-  "it sets a key",
-  {}, ["--set.foo=bar"],
-  {foo: "bar"}
-)
+test("it sets a key",
+     testRun({}, ["--set.foo=bar"], {foo: "bar"}))
 
-testRun(
-  "it sets a nested key",
-  {},
-  ["--set.foo.bar=baz"],
-  {foo: {bar: "baz"}}
-)
+test("it sets a nested key",
+     testRun({}, ["--set.foo.bar=baz"], {foo: {bar: "baz"}}))
 
-testRun(
-  "sets multiple keys",
-  {},
-  ["--set.foo=bar", "--set.baz=qux"],
-  {foo: "bar", baz: "qux"}
-)
+test("sets multiple keys",
+     testRun({}, ["--set.foo=bar", "--set.baz=qux"], {foo: "bar", baz: "qux"}))
 
-testRun(
-  "deletes a key",
-  {foo: "bar"},
-  ["--del=foo"],
-  {}
-)
+test("deletes a key",
+     testRun({foo: "bar"}, ["--del=foo"], {}))
 
-testRun(
-  "deletes a nested key",
-  {foo: {bar: "baz"}},
-  ["--del=foo.bar"],
-  {foo: {}}
-)
+test("deletes a nested key",
+     testRun({foo: {bar: "baz"}}, ["--del=foo.bar"], {foo: {}}))
 
-testRun(
-  "deletes multiple keys",
-  {foo: "bar", baz: "qux"},
-  ["--del=foo", "--del=baz"],
-  {}
-)
+test("deletes multiple keys",
+     testRun({foo: "bar", baz: "qux"}, ["--del=foo", "--del=baz"], {}))
+
+test("copies a key", t => {
+  const from = {x: {y: "z"}}
+  return tmpJSON(from).then(path => {
+    return testRun({}, [`--copy=${path}:x`], from)(t)
+  })
+})
