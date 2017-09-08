@@ -1,6 +1,9 @@
 # set-json
-Update one or more JSON files in place with a simple command line syntax:
+![](	https://img.shields.io/npm/v/set-json.svg)
 
+Update one or more JSON files in place with a simple command line syntax.
+
+## Usage
 ```sh
 echo "{}" > test.json
 
