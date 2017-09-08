@@ -1,5 +1,5 @@
 # set-json
-Update JSON files in place with a simple command line syntax:
+Update one or more JSON files in place with a simple command line syntax:
 
 ```sh
 echo "{}" > test.json
