@@ -1,6 +1,6 @@
 {
   "name": "set-json",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Update JSON files programmatically, from the command line",
   "bin": "cli.js",
   "scripts": {
